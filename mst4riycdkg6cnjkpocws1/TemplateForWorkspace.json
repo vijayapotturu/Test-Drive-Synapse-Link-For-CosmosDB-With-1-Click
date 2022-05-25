@@ -114,7 +114,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "ac139828-f79c-4d2d-870f-e84baa2c95b3"
+						"spark.autotune.trackingId": "eabd580e-bf13-423b-b035-867e631898bb"
 					}
 				},
 				"metadata": {
@@ -139,15 +139,13 @@
 						"sparkVersion": "2.4",
 						"nodeCount": 5,
 						"cores": 8,
-						"memory": 56,
-						"automaticScaleJobs": false
+						"memory": 56
 					},
 					"sessionKeepAliveTimeout": 30
 				},
 				"cells": [
 					{
 						"cell_type": "markdown",
-						"metadata": {},
 						"source": [
 							"# Leverage Power of Azure Synapse Link for Cosmos DB and Spark SQL\n",
 							"With Synapse Link, you can now directly connect to your Azure Cosmos DB containers from Azure Synapse Analytics and access the analytical store with no separate connectors. This notebook scenario is to \n",
@@ -367,7 +365,6 @@
 					},
 					{
 						"cell_type": "markdown",
-						"metadata": {},
 						"source": [
 							"## Predictive Analytics\n",
 							"Leverage power of Azure Machine Learning's AutoML to build a Forecasting Model Predictive analytics can help us to study and discover the factors that determine the number of sales that a retail store will have in the future.This notebook scenario is [Microsoft Surface](https://www.microsoft.com/en-us/surface) sales forecasting, with artificially created data. The business challenge is a distributor that wants to predict how many units are necessary in the local warehouse to supply the stores in the area.\n",
@@ -404,7 +401,6 @@
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"import azureml.core\n",
 							"import pandas as pd\n",
@@ -440,7 +436,6 @@
 					},
 					{
 						"cell_type": "markdown",
-						"metadata": {},
 						"source": [
 							"### Data Preparation - Feature engineering, Splitting train & test datasets\n",
 							""
@@ -448,7 +443,6 @@
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"# Initial variables\n",
 							"time_column_name = 'weekStarting'\n",
@@ -511,7 +505,6 @@
 					},
 					{
 						"cell_type": "markdown",
-						"metadata": {},
 						"source": [
 							"### Training the Models using AutoML Forecasting\n",
 							"\n",
@@ -520,7 +513,6 @@
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"# Parameters\n",
 							"time_series_settings = {\n",
@@ -553,14 +545,12 @@
 					},
 					{
 						"cell_type": "markdown",
-						"metadata": {},
 						"source": [
 							"### Retrieving the Best Model and Forecasting"
 						]
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"# Retrieving the best model\n",
 							"best_run, fitted_model = remote_run.get_output()\n",
@@ -579,14 +569,12 @@
 					},
 					{
 						"cell_type": "markdown",
-						"metadata": {},
 						"source": [
 							"### Plotting the Results"
 						]
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"import pandas as pd\n",
 							"import numpy as np\n",
@@ -668,7 +656,6 @@
 					},
 					{
 						"cell_type": "markdown",
-						"metadata": {},
 						"source": [
 							"## Closing\n",
 							"\n",
@@ -704,7 +691,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "19",
 						"spark.dynamicAllocation.maxExecutors": "19",
-						"spark.autotune.trackingId": "948a07e8-de70-4fd5-aeac-92cc181e5f7b"
+						"spark.autotune.trackingId": "a1d8f182-8c4d-4620-bad6-0d6f775af16b"
 					}
 				},
 				"metadata": {
@@ -794,7 +781,7 @@
 							}
 						},
 						"source": [
-							"Cognitive_Services_Key='76dffd39d55741edbd917f0edf60b2a6'"
+							"Cognitive_Services_Key='cda7cacf682247869aa52978540674be'"
 						],
 						"outputs": [],
 						"execution_count": 1
@@ -962,7 +949,7 @@
 							"    .save()"
 						],
 						"outputs": [],
-						"execution_count": 16
+						"execution_count": 5
 					},
 					{
 						"cell_type": "code",
@@ -989,7 +976,7 @@
 							"    .save()"
 						],
 						"outputs": [],
-						"execution_count": 17
+						"execution_count": 6
 					},
 					{
 						"cell_type": "markdown",
@@ -1028,7 +1015,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 6
+						"execution_count": 7
 					},
 					{
 						"cell_type": "code",
@@ -1056,7 +1043,7 @@
 							"        spark.cosmos.container 'IoTSignals');"
 						],
 						"outputs": [],
-						"execution_count": 18
+						"execution_count": 8
 					},
 					{
 						"cell_type": "code",
@@ -1085,7 +1072,7 @@
 							" "
 						],
 						"outputs": [],
-						"execution_count": 10
+						"execution_count": 9
 					},
 					{
 						"cell_type": "markdown",
@@ -1133,7 +1120,7 @@
 							"display(df_RPM_details)"
 						],
 						"outputs": [],
-						"execution_count": 19
+						"execution_count": 10
 					},
 					{
 						"cell_type": "markdown",
@@ -1191,7 +1178,7 @@
 							"displayHTML(p)"
 						],
 						"outputs": [],
-						"execution_count": 20
+						"execution_count": 11
 					},
 					{
 						"cell_type": "markdown",
@@ -1228,7 +1215,7 @@
 							"                    .load()"
 						],
 						"outputs": [],
-						"execution_count": 21
+						"execution_count": 12
 					},
 					{
 						"cell_type": "markdown",
@@ -1277,7 +1264,7 @@
 							"plt.show()"
 						],
 						"outputs": [],
-						"execution_count": 23
+						"execution_count": 13
 					},
 					{
 						"cell_type": "markdown",
@@ -1310,7 +1297,7 @@
 							"display(df_IoTSignals)"
 						],
 						"outputs": [],
-						"execution_count": 31
+						"execution_count": 14
 					},
 					{
 						"cell_type": "code",
@@ -1323,6 +1310,7 @@
 							"\n",
 							"anomaly_detector = (SimpleDetectAnomalies()\n",
 							"                            .setSubscriptionKey(Cognitive_Services_Key)\n",
+							"                            .setUrl(\"https://anomalydemopot.cognitiveservices.azure.com/anomalydetector/v1.0/timeseries/entire/detect\")\n",
 							"                            .setLocation('East US') ##Optional, Update If Required\n",
 							"                            .setOutputCol(\"anomalies\")\n",
 							"                            .setGroupbyCol(\"grouping\")\n",
@@ -1332,7 +1320,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 32
+						"execution_count": 23
 					},
 					{
 						"cell_type": "code",
@@ -1358,7 +1346,7 @@
 							"#df_anomaly.createOrReplaceTempView('df_anomaly')"
 						],
 						"outputs": [],
-						"execution_count": 33
+						"execution_count": 24
 					},
 					{
 						"cell_type": "code",
@@ -1377,7 +1365,7 @@
 							"df_anomaly.createOrReplaceTempView('df_anomaly')"
 						],
 						"outputs": [],
-						"execution_count": 38
+						"execution_count": 25
 					},
 					{
 						"cell_type": "code",
@@ -1397,7 +1385,7 @@
 							"display(df_anomaly)"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 26
 					},
 					{
 						"cell_type": "markdown",
@@ -1518,7 +1506,7 @@
 					"minNodeCount": 3
 				},
 				"nodeCount": 5,
-				"nodeSize": "Small",
+				"nodeSize": "Medium",
 				"nodeSizeFamily": "MemoryOptimized",
 				"sparkVersion": "2.4",
 				"isComputeIsolationEnabled": false,
