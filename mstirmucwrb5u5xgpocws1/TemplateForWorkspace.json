@@ -21,15 +21,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('workspaceName'), '/ws1sparkpool1')]",
-			"type": "Microsoft.Synapse/workspaces/bigDataPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('workspaceName'), '/CosmosDBLink')]",
 			"type": "Microsoft.Synapse/workspaces/linkedServices",
 			"apiVersion": "2019-06-01-preview",
@@ -114,16 +105,16 @@
 					"type": "BigDataPoolReference"
 				},
 				"sessionProperties": {
-					"driverMemory": "28g",
-					"driverCores": 4,
-					"executorMemory": "28g",
-					"executorCores": 4,
+					"driverMemory": "56g",
+					"driverCores": 8,
+					"executorMemory": "56g",
+					"executorCores": 8,
 					"numExecutors": 2,
 					"conf": {
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "10ecff46-0105-4ccb-83c6-64cf5563f63a"
+						"spark.autotune.trackingId": "920e6e28-4047-4d47-9b17-d12af29bd86d"
 					}
 				},
 				"metadata": {
@@ -148,13 +139,15 @@
 						"sparkVersion": "2.4",
 						"nodeCount": 5,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
 				"cells": [
 					{
 						"cell_type": "markdown",
+						"metadata": {},
 						"source": [
 							"# Leverage Power of Azure Synapse Link for Cosmos DB and Spark SQL\n",
 							"With Synapse Link, you can now directly connect to your Azure Cosmos DB containers from Azure Synapse Analytics and access the analytical store with no separate connectors. This notebook scenario is to \n",
@@ -213,7 +206,7 @@
 							"AMLWsresource_group='AMLpot'"
 						],
 						"outputs": [],
-						"execution_count": 4
+						"execution_count": 2
 					},
 					{
 						"cell_type": "markdown",
@@ -274,7 +267,7 @@
 							"    .save()"
 						],
 						"outputs": [],
-						"execution_count": 1
+						"execution_count": 16
 					},
 					{
 						"cell_type": "markdown",
@@ -319,7 +312,7 @@
 							");"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 13
 					},
 					{
 						"cell_type": "markdown",
@@ -370,10 +363,11 @@
 							"display(data)"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 14
 					},
 					{
 						"cell_type": "markdown",
+						"metadata": {},
 						"source": [
 							"## Predictive Analytics\n",
 							"Leverage power of Azure Machine Learning's AutoML to build a Forecasting Model Predictive analytics can help us to study and discover the factors that determine the number of sales that a retail store will have in the future.This notebook scenario is [Microsoft Surface](https://www.microsoft.com/en-us/surface) sales forecasting, with artificially created data. The business challenge is a distributor that wants to predict how many units are necessary in the local warehouse to supply the stores in the area.\n",
@@ -406,10 +400,11 @@
 							"               )"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 15
 					},
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"import azureml.core\n",
 							"import pandas as pd\n",
@@ -441,10 +436,11 @@
 							"outputDf.T"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 17
 					},
 					{
 						"cell_type": "markdown",
+						"metadata": {},
 						"source": [
 							"### Data Preparation - Feature engineering, Splitting train & test datasets\n",
 							""
@@ -452,6 +448,7 @@
 					},
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"# Initial variables\n",
 							"time_column_name = 'weekStarting'\n",
@@ -510,10 +507,11 @@
 							"train_dataset = Dataset.Tabular.from_delimited_files(path=datastore.path('dataset/SurfaceSales_train.csv'))"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 18
 					},
 					{
 						"cell_type": "markdown",
+						"metadata": {},
 						"source": [
 							"### Training the Models using AutoML Forecasting\n",
 							"\n",
@@ -522,6 +520,7 @@
 					},
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"# Parameters\n",
 							"time_series_settings = {\n",
@@ -550,16 +549,18 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 19
 					},
 					{
 						"cell_type": "markdown",
+						"metadata": {},
 						"source": [
 							"### Retrieving the Best Model and Forecasting"
 						]
 					},
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"# Retrieving the best model\n",
 							"best_run, fitted_model = remote_run.get_output()\n",
@@ -574,16 +575,18 @@
 							"y_predictions, X_trans = fitted_model.forecast(X_test)"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 20
 					},
 					{
 						"cell_type": "markdown",
+						"metadata": {},
 						"source": [
 							"### Plotting the Results"
 						]
 					},
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"import pandas as pd\n",
 							"import numpy as np\n",
@@ -661,10 +664,11 @@
 							"plt.show()"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 21
 					},
 					{
 						"cell_type": "markdown",
+						"metadata": {},
 						"source": [
 							"## Closing\n",
 							"\n",
