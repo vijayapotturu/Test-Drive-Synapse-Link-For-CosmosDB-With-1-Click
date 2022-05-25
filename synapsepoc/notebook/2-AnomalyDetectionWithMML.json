@@ -16,7 +16,8 @@
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "19",
-				"spark.dynamicAllocation.maxExecutors": "19"
+				"spark.dynamicAllocation.maxExecutors": "19",
+				"spark.autotune.trackingId": "1ee60b56-050b-4df2-85d5-5c287f5d49c1"
 			}
 		},
 		"metadata": {
@@ -30,10 +31,10 @@
 				"name": "python"
 			},
 			"a365ComputeOptions": {
-				"id": "/subscriptions/4eeedd72-d937-4243-86d1-c3982a84d924/resourceGroups/nashahz1007-02/providers/Microsoft.Synapse/workspaces/navzhtz6rgwnfydapocws1/bigDataPools/ws1sparkpool1",
+				"id": "/subscriptions/326b99e2-8ff4-479f-9240-f5645a43a055/resourceGroups/synapsedemopot/providers/Microsoft.Synapse/workspaces/mst4riycdkg6cnjkpocws1/bigDataPools/ws1sparkpool1",
 				"name": "ws1sparkpool1",
 				"type": "Spark",
-				"endpoint": "https://navzhtz6rgwnfydapocws1.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/ws1sparkpool1",
+				"endpoint": "https://mst4riycdkg6cnjkpocws1.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/ws1sparkpool1",
 				"auth": {
 					"type": "AAD",
 					"authResource": "https://dev.azuresynapse.net"
@@ -105,9 +106,9 @@
 					}
 				},
 				"source": [
-					"Cognitive_Services_Key='<Cognitive Services Account Key>'"
+					"Cognitive_Services_Key='76dffd39d55741edbd917f0edf60b2a6'"
 				],
-				"execution_count": 2
+				"execution_count": 1
 			},
 			{
 				"cell_type": "markdown",
@@ -145,7 +146,7 @@
 					"                .load()\r\n",
 					"            )"
 				],
-				"execution_count": 3
+				"execution_count": 2
 			},
 			{
 				"cell_type": "markdown",
@@ -184,7 +185,7 @@
 					"                    .drop(\"timestamp\", \"value\")\n",
 					"                )"
 				],
-				"execution_count": 4
+				"execution_count": 3
 			},
 			{
 				"cell_type": "markdown",
@@ -226,7 +227,7 @@
 					"streamQuery.awaitTermination(180)\r\n",
 					"streamQuery.stop()"
 				],
-				"execution_count": 5
+				"execution_count": 4
 			},
 			{
 				"cell_type": "markdown",
@@ -256,7 +257,9 @@
 					}
 				},
 				"source": [
-					"path = 'wasbs://cosmolnksynp@synapse1poc.blob.core.windows.net/cosmolnksynp/IoTDeviceInfo.csv'\r\n",
+					"#path = 'wasbs://cosmolnksynp@synapse1poc.blob.core.windows.net/cosmolnksynp/IoTDeviceInfo.csv'\r\n",
+					"\r\n",
+					"path = 'abfss://dlsmstpocfs1@mst4riycdkg6cnjkpoc.dfs.core.windows.net/IoTDeviceInfo.csv'\r\n",
 					"dfDeviceInfo = spark.read.csv(path, header=True, inferSchema=True)\r\n",
 					"dfDeviceInfo.write\\\r\n",
 					"    .format(\"cosmos.oltp\")\\\r\n",
@@ -266,7 +269,33 @@
 					"    .mode('append')\\\r\n",
 					"    .save()"
 				],
-				"execution_count": 6
+				"execution_count": 16
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"path = 'abfss://dlsmstpocfs1@mst4riycdkg6cnjkpoc.dfs.core.windows.net/IoTSignals.csv'\r\n",
+					"dfDeviceSignals = spark.read.csv(path, header=True, inferSchema=True)\r\n",
+					"dfDeviceSignals.write\\\r\n",
+					"    .format(\"cosmos.oltp\")\\\r\n",
+					"    .option(\"spark.synapse.linkedService\", \"CosmosDBLink\")\\\r\n",
+					"    .option(\"spark.cosmos.container\", \"IoTSignals\")\\\r\n",
+					"    .option(\"spark.cosmos.write.upsertEnabled\", \"true\")\\\r\n",
+					"    .mode('append')\\\r\n",
+					"    .save()"
+				],
+				"execution_count": 17
 			},
 			{
 				"cell_type": "markdown",
@@ -302,19 +331,64 @@
 				"source": [
 					"%%sql\r\n",
 					"create database if not exists CosmosDBIoTDemoDB;\r\n",
+					""
+				],
+				"execution_count": 6
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "sparksql"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%sql\r\n",
 					"\r\n",
 					"create table if not exists CosmosDBIoTDemoDB.IoTSignals\r\n",
 					"using cosmos.olap\r\n",
 					"options(spark.synapse.linkedService 'CosmosDBLink',\r\n",
-					"        spark.cosmos.container 'IoTSignals');\r\n",
-					"\r\n",
+					"        spark.cosmos.container 'IoTSignals');"
+				],
+				"execution_count": 18
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "sparksql"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%sql\r\n",
 					"create table if not exists CosmosDBIoTDemoDB.IoTDeviceInfo\r\n",
 					"using cosmos.olap\r\n",
 					"options(spark.synapse.linkedService 'CosmosDBLink',\r\n",
 					"        spark.cosmos.container 'IoTDeviceInfo')\r\n",
-					""
+					"\r\n",
+					" "
 				],
-				"execution_count": 7
+				"execution_count": 10
 			},
 			{
 				"cell_type": "markdown",
@@ -361,7 +435,7 @@
 					"\r\n",
 					"display(df_RPM_details)"
 				],
-				"execution_count": 9
+				"execution_count": 19
 			},
 			{
 				"cell_type": "markdown",
@@ -418,7 +492,7 @@
 					"p = plot(fig,output_type='div')\r\n",
 					"displayHTML(p)"
 				],
-				"execution_count": 10
+				"execution_count": 20
 			},
 			{
 				"cell_type": "markdown",
@@ -454,7 +528,7 @@
 					"                    .option(\"spark.cosmos.container\", \"IoTSignals\")\\\r\n",
 					"                    .load()"
 				],
-				"execution_count": 11
+				"execution_count": 21
 			},
 			{
 				"cell_type": "markdown",
@@ -502,7 +576,7 @@
 					"plt.title('RPM TimeSeries')\r\n",
 					"plt.show()"
 				],
-				"execution_count": 12
+				"execution_count": 23
 			},
 			{
 				"cell_type": "markdown",
@@ -519,6 +593,25 @@
 			},
 			{
 				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"display(df_IoTSignals)"
+				],
+				"execution_count": 31
+			},
+			{
+				"cell_type": "code",
 				"source": [
 					"from pyspark.sql.functions import col\n",
 					"from pyspark.sql.types import *\n",
@@ -527,22 +620,58 @@
 					"\n",
 					"anomaly_detector = (SimpleDetectAnomalies()\n",
 					"                            .setSubscriptionKey(Cognitive_Services_Key)\n",
-					"                            .setLocation('southcentralus') ##Optional, Update If Required\n",
+					"                            .setLocation('East US') ##Optional, Update If Required\n",
 					"                            .setOutputCol(\"anomalies\")\n",
 					"                            .setGroupbyCol(\"grouping\")\n",
 					"                            .setSensitivity(95)\n",
 					"                            .setGranularity(\"secondly\"))\n",
 					"\n",
-					"df_anomaly = (df_IoTSignals\n",
-					"                    .where(col(\"unitSymbol\") == 'RPM')\n",
-					"                    .withColumnRenamed(\"dateTime\", \"timestamp\")\n",
-					"                    .withColumn(\"value\", col(\"measureValue\").cast(\"double\"))\n",
-					"                    .withColumn(\"grouping\", col(\"deviceId\"))\n",
-					"                    .mlTransform(anomaly_detector))\n",
-					"\n",
+					""
+				],
+				"execution_count": 32
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"df_anomaly = (df_IoTSignals\r\n",
+					"                    .where(col(\"unitSymbol\") == 'RPM')\r\n",
+					"                    .withColumnRenamed(\"dateTime\", \"timestamp\")\r\n",
+					"                    .withColumn(\"value\", col(\"measureValue\").cast(\"double\"))\r\n",
+					"                    .withColumn(\"grouping\", col(\"deviceId\"))\r\n",
+					"                    .mlTransform(anomaly_detector))\r\n",
+					"\r\n",
+					"#df_anomaly.createOrReplaceTempView('df_anomaly')"
+				],
+				"execution_count": 33
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
 					"df_anomaly.createOrReplaceTempView('df_anomaly')"
 				],
-				"execution_count": 13
+				"execution_count": 38
 			},
 			{
 				"cell_type": "code",
@@ -561,7 +690,7 @@
 				"source": [
 					"display(df_anomaly)"
 				],
-				"execution_count": 14
+				"execution_count": null
 			},
 			{
 				"cell_type": "markdown",
@@ -605,7 +734,7 @@
 					"\r\n",
 					"display(df_anomaly_single_device)"
 				],
-				"execution_count": 15
+				"execution_count": null
 			},
 			{
 				"cell_type": "markdown",
@@ -659,7 +788,7 @@
 					"plt.title('RPM Anomalies with Expected, Actual, Upper and Lower Values')\r\n",
 					"plt.show()"
 				],
-				"execution_count": 16
+				"execution_count": null
 			}
 		]
 	}
