@@ -8,16 +8,16 @@
 			"type": "BigDataPoolReference"
 		},
 		"sessionProperties": {
-			"driverMemory": "28g",
-			"driverCores": 4,
-			"executorMemory": "28g",
-			"executorCores": 4,
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
 			"numExecutors": 2,
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "10ecff46-0105-4ccb-83c6-64cf5563f63a"
+				"spark.autotune.trackingId": "2778ddc5-b265-4be9-b63e-f8fdacf3f54e"
 			}
 		},
 		"metadata": {
@@ -107,7 +107,7 @@
 					"AMLWssubscription_id='326b99e2-8ff4-479f-9240-f5645a43a055'\r\n",
 					"AMLWsresource_group='AMLpot'"
 				],
-				"execution_count": 4
+				"execution_count": 2
 			},
 			{
 				"cell_type": "markdown",
@@ -167,7 +167,7 @@
 					"    .mode('append')\\\r\n",
 					"    .save()"
 				],
-				"execution_count": 1
+				"execution_count": 16
 			},
 			{
 				"cell_type": "markdown",
@@ -211,7 +211,7 @@
 					"    spark.cosmos.container 'Products'\n",
 					");"
 				],
-				"execution_count": null
+				"execution_count": 13
 			},
 			{
 				"cell_type": "markdown",
@@ -261,7 +261,7 @@
 					"\n",
 					"display(data)"
 				],
-				"execution_count": null
+				"execution_count": 14
 			},
 			{
 				"cell_type": "markdown",
@@ -296,7 +296,7 @@
 					"               location='South Central US' ## Optional, Update If Required\r\n",
 					"               )"
 				],
-				"execution_count": null
+				"execution_count": 15
 			},
 			{
 				"cell_type": "code",
@@ -330,7 +330,7 @@
 					"outputDf = pd.DataFrame(data = output, index = [''])\n",
 					"outputDf.T"
 				],
-				"execution_count": null
+				"execution_count": 17
 			},
 			{
 				"cell_type": "markdown",
@@ -398,7 +398,7 @@
 					"from azureml.core.dataset import Dataset\n",
 					"train_dataset = Dataset.Tabular.from_delimited_files(path=datastore.path('dataset/SurfaceSales_train.csv'))"
 				],
-				"execution_count": null
+				"execution_count": 18
 			},
 			{
 				"cell_type": "markdown",
@@ -437,7 +437,7 @@
 					"\n",
 					""
 				],
-				"execution_count": null
+				"execution_count": 19
 			},
 			{
 				"cell_type": "markdown",
@@ -460,7 +460,7 @@
 					"X_test[time_column_name] = pd.to_datetime(X_test[time_column_name])\n",
 					"y_predictions, X_trans = fitted_model.forecast(X_test)"
 				],
-				"execution_count": null
+				"execution_count": 20
 			},
 			{
 				"cell_type": "markdown",
@@ -546,7 +546,7 @@
 					"plt.legend((test_pred, test_test), ('prediction', 'truth'), loc='upper left', fontsize=8)\n",
 					"plt.show()"
 				],
-				"execution_count": null
+				"execution_count": 21
 			},
 			{
 				"cell_type": "markdown",
