@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "2778ddc5-b265-4be9-b63e-f8fdacf3f54e"
+				"spark.autotune.trackingId": "eabd580e-bf13-423b-b035-867e631898bb"
 			}
 		},
 		"metadata": {
@@ -31,18 +31,18 @@
 				"name": "python"
 			},
 			"a365ComputeOptions": {
-				"id": "/subscriptions/326b99e2-8ff4-479f-9240-f5645a43a055/resourceGroups/synapsecosmosdemopot/providers/Microsoft.Synapse/workspaces/mstirmucwrb5u5xgpocws1/bigDataPools/ws1sparkpool1",
+				"id": "/subscriptions/326b99e2-8ff4-479f-9240-f5645a43a055/resourceGroups/synapsedemopot/providers/Microsoft.Synapse/workspaces/mst4riycdkg6cnjkpocws1/bigDataPools/ws1sparkpool1",
 				"name": "ws1sparkpool1",
 				"type": "Spark",
-				"endpoint": "https://mstirmucwrb5u5xgpocws1.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/ws1sparkpool1",
+				"endpoint": "https://mst4riycdkg6cnjkpocws1.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/ws1sparkpool1",
 				"auth": {
 					"type": "AAD",
 					"authResource": "https://dev.azuresynapse.net"
 				},
 				"sparkVersion": "2.4",
 				"nodeCount": 5,
-				"cores": 4,
-				"memory": 28,
+				"cores": 8,
+				"memory": 56,
 				"automaticScaleJobs": false
 			},
 			"sessionKeepAliveTimeout": 30
@@ -103,11 +103,11 @@
 					}
 				},
 				"source": [
-					"AMLWsname='AMLPOTBootcamp'\r\n",
+					"AMLWsname='AMLPOTdemo'\r\n",
 					"AMLWssubscription_id='326b99e2-8ff4-479f-9240-f5645a43a055'\r\n",
-					"AMLWsresource_group='AMLpot'"
+					"AMLWsresource_group='AMLdemopot'"
 				],
-				"execution_count": 2
+				"execution_count": 9
 			},
 			{
 				"cell_type": "markdown",
@@ -137,7 +137,7 @@
 					"collapsed": true
 				},
 				"source": [
-					"path = 'wasbs://cosmolnksynp@synapse1poc.blob.core.windows.net/cosmolnksynp/Products.csv'\r\n",
+					"path = 'abfss://dlsmstpocfs1@mst4riycdkg6cnjkpoc.dfs.core.windows.net/Products.csv'\r\n",
 					"dfProducts = spark.read.csv(path, header=True, inferSchema=True)\r\n",
 					"dfProducts.write\\\r\n",
 					"    .format(\"cosmos.oltp\")\\\r\n",
@@ -147,7 +147,7 @@
 					"    .mode('append')\\\r\n",
 					"    .save()\r\n",
 					"\r\n",
-					"path = 'wasbs://cosmolnksynp@synapse1poc.blob.core.windows.net/cosmolnksynp/RetailSales.csv'\r\n",
+					"path = 'abfss://dlsmstpocfs1@mst4riycdkg6cnjkpoc.dfs.core.windows.net/RetailSales.csv'\r\n",
 					"dfRetailSales = spark.read.csv(path, header=True, inferSchema=True)\r\n",
 					"dfRetailSales.write\\\r\n",
 					"    .format(\"cosmos.oltp\")\\\r\n",
@@ -157,7 +157,7 @@
 					"    .mode('append')\\\r\n",
 					"    .save()\r\n",
 					"\r\n",
-					"path = 'wasbs://cosmolnksynp@synapse1poc.blob.core.windows.net/cosmolnksynp/StoreDemoGraphics.csv'\r\n",
+					"path = 'abfss://dlsmstpocfs1@mst4riycdkg6cnjkpoc.dfs.core.windows.net/StoreDemoGraphics.csv'\r\n",
 					"dfStoreDemoGraphics = spark.read.csv(path, header=True, inferSchema=True)\r\n",
 					"dfStoreDemoGraphics.write\\\r\n",
 					"    .format(\"cosmos.oltp\")\\\r\n",
@@ -167,7 +167,7 @@
 					"    .mode('append')\\\r\n",
 					"    .save()"
 				],
-				"execution_count": 16
+				"execution_count": 3
 			},
 			{
 				"cell_type": "markdown",
@@ -196,22 +196,22 @@
 					"\n",
 					"create table if not exists RetailSalesDB.RetailSales using cosmos.olap options (\n",
 					"    spark.synapse.linkedService 'CosmosDBLink',\n",
-					"    spark.cosmos.preferredRegions 'South Central US',  --Optional, Update If Required\n",
+					"    spark.cosmos.preferredRegions 'East US',  --Optional, Update If Required\n",
 					"    spark.cosmos.container 'RetailSales'\n",
 					");\n",
 					"\n",
 					"create table if not exists RetailSalesDB.StoreDemographics using cosmos.olap options (\n",
 					"    spark.synapse.linkedService 'CosmosDBLink',\n",
-					"    spark.cosmos.preferredRegions 'South Central US', --Optional, Update If Required\n",
+					"    spark.cosmos.preferredRegions 'East US', --Optional, Update If Required\n",
 					"    spark.cosmos.container 'StoreDemoGraphics'\n",
 					");\n",
 					"create table if not exists RetailSalesDB.Product using cosmos.olap options (\n",
 					"    spark.synapse.linkedService 'CosmosDBLink',\n",
-					"    spark.cosmos.preferredRegions 'South Central US', --Optional, Update If Required\n",
+					"    spark.cosmos.preferredRegions 'East US', --Optional, Update If Required\n",
 					"    spark.cosmos.container 'Products'\n",
 					");"
 				],
-				"execution_count": 13
+				"execution_count": 5
 			},
 			{
 				"cell_type": "markdown",
@@ -261,7 +261,7 @@
 					"\n",
 					"display(data)"
 				],
-				"execution_count": 14
+				"execution_count": 6
 			},
 			{
 				"cell_type": "markdown",
@@ -293,10 +293,10 @@
 					"               subscription_id=AMLWssubscription_id,\r\n",
 					"               resource_group=AMLWsresource_group,\r\n",
 					"               create_resource_group=True,\r\n",
-					"               location='South Central US' ## Optional, Update If Required\r\n",
+					"               location='East US' ## Optional, Update If Required\r\n",
 					"               )"
 				],
-				"execution_count": 15
+				"execution_count": 10
 			},
 			{
 				"cell_type": "code",
@@ -330,7 +330,7 @@
 					"outputDf = pd.DataFrame(data = output, index = [''])\n",
 					"outputDf.T"
 				],
-				"execution_count": 17
+				"execution_count": 11
 			},
 			{
 				"cell_type": "markdown",
@@ -398,7 +398,7 @@
 					"from azureml.core.dataset import Dataset\n",
 					"train_dataset = Dataset.Tabular.from_delimited_files(path=datastore.path('dataset/SurfaceSales_train.csv'))"
 				],
-				"execution_count": 18
+				"execution_count": 12
 			},
 			{
 				"cell_type": "markdown",
@@ -437,7 +437,7 @@
 					"\n",
 					""
 				],
-				"execution_count": 19
+				"execution_count": 13
 			},
 			{
 				"cell_type": "markdown",
@@ -460,7 +460,7 @@
 					"X_test[time_column_name] = pd.to_datetime(X_test[time_column_name])\n",
 					"y_predictions, X_trans = fitted_model.forecast(X_test)"
 				],
-				"execution_count": 20
+				"execution_count": 14
 			},
 			{
 				"cell_type": "markdown",
@@ -546,7 +546,7 @@
 					"plt.legend((test_pred, test_test), ('prediction', 'truth'), loc='upper left', fontsize=8)\n",
 					"plt.show()"
 				],
-				"execution_count": 21
+				"execution_count": 15
 			},
 			{
 				"cell_type": "markdown",
