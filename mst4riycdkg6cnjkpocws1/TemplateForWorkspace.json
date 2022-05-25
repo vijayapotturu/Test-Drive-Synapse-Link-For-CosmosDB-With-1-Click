@@ -691,7 +691,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "19",
 						"spark.dynamicAllocation.maxExecutors": "19",
-						"spark.autotune.trackingId": "a1d8f182-8c4d-4620-bad6-0d6f775af16b"
+						"spark.autotune.trackingId": "56d63dc6-8394-465f-bd5d-7e45a397f013"
 					}
 				},
 				"metadata": {
@@ -781,10 +781,10 @@
 							}
 						},
 						"source": [
-							"Cognitive_Services_Key='cda7cacf682247869aa52978540674be'"
+							"Cognitive_Services_Key='9b1a02a01c684073b55dcbbadfa064d3'"
 						],
 						"outputs": [],
-						"execution_count": 1
+						"execution_count": 27
 					},
 					{
 						"cell_type": "markdown",
@@ -823,7 +823,7 @@
 							"            )"
 						],
 						"outputs": [],
-						"execution_count": 2
+						"execution_count": 28
 					},
 					{
 						"cell_type": "markdown",
@@ -863,7 +863,7 @@
 							"                )"
 						],
 						"outputs": [],
-						"execution_count": 3
+						"execution_count": 29
 					},
 					{
 						"cell_type": "markdown",
@@ -906,7 +906,7 @@
 							"streamQuery.stop()"
 						],
 						"outputs": [],
-						"execution_count": 4
+						"execution_count": 30
 					},
 					{
 						"cell_type": "markdown",
@@ -949,7 +949,7 @@
 							"    .save()"
 						],
 						"outputs": [],
-						"execution_count": 5
+						"execution_count": 31
 					},
 					{
 						"cell_type": "code",
@@ -976,7 +976,7 @@
 							"    .save()"
 						],
 						"outputs": [],
-						"execution_count": 6
+						"execution_count": 32
 					},
 					{
 						"cell_type": "markdown",
@@ -1015,7 +1015,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 7
+						"execution_count": 33
 					},
 					{
 						"cell_type": "code",
@@ -1043,7 +1043,7 @@
 							"        spark.cosmos.container 'IoTSignals');"
 						],
 						"outputs": [],
-						"execution_count": 8
+						"execution_count": 34
 					},
 					{
 						"cell_type": "code",
@@ -1072,7 +1072,7 @@
 							" "
 						],
 						"outputs": [],
-						"execution_count": 9
+						"execution_count": 35
 					},
 					{
 						"cell_type": "markdown",
@@ -1120,7 +1120,7 @@
 							"display(df_RPM_details)"
 						],
 						"outputs": [],
-						"execution_count": 10
+						"execution_count": 36
 					},
 					{
 						"cell_type": "markdown",
@@ -1178,7 +1178,7 @@
 							"displayHTML(p)"
 						],
 						"outputs": [],
-						"execution_count": 11
+						"execution_count": 37
 					},
 					{
 						"cell_type": "markdown",
@@ -1215,7 +1215,7 @@
 							"                    .load()"
 						],
 						"outputs": [],
-						"execution_count": 12
+						"execution_count": 38
 					},
 					{
 						"cell_type": "markdown",
@@ -1264,7 +1264,7 @@
 							"plt.show()"
 						],
 						"outputs": [],
-						"execution_count": 13
+						"execution_count": 39
 					},
 					{
 						"cell_type": "markdown",
@@ -1297,7 +1297,7 @@
 							"display(df_IoTSignals)"
 						],
 						"outputs": [],
-						"execution_count": 14
+						"execution_count": 40
 					},
 					{
 						"cell_type": "code",
@@ -1310,7 +1310,7 @@
 							"\n",
 							"anomaly_detector = (SimpleDetectAnomalies()\n",
 							"                            .setSubscriptionKey(Cognitive_Services_Key)\n",
-							"                            .setUrl(\"https://anomalydemopot.cognitiveservices.azure.com/anomalydetector/v1.0/timeseries/entire/detect\")\n",
+							"                            #.setUrl(\"https://eastus.api.cognitive.microsoft.com/anomalydetector/v1.0/timeseries/entire/detect\")\n",
 							"                            .setLocation('East US') ##Optional, Update If Required\n",
 							"                            .setOutputCol(\"anomalies\")\n",
 							"                            .setGroupbyCol(\"grouping\")\n",
@@ -1320,7 +1320,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 23
+						"execution_count": 45
 					},
 					{
 						"cell_type": "code",
@@ -1346,7 +1346,7 @@
 							"#df_anomaly.createOrReplaceTempView('df_anomaly')"
 						],
 						"outputs": [],
-						"execution_count": 24
+						"execution_count": 46
 					},
 					{
 						"cell_type": "code",
@@ -1365,7 +1365,7 @@
 							"df_anomaly.createOrReplaceTempView('df_anomaly')"
 						],
 						"outputs": [],
-						"execution_count": 25
+						"execution_count": 47
 					},
 					{
 						"cell_type": "code",
@@ -1385,7 +1385,7 @@
 							"display(df_anomaly)"
 						],
 						"outputs": [],
-						"execution_count": 26
+						"execution_count": 48
 					},
 					{
 						"cell_type": "markdown",
