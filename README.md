@@ -88,7 +88,7 @@ This template deploys necessary resources to support an Azure Synapse link for C
 #### Configuring Synapse Link for CosmosDB
 - In Synapse Studio click on the 'Manage' icon in the left panel and navigate to 'Linked Services' menu option.
 - In Synapse Studio click on 'CosmosDBLink' linked service to open up configuration settings.
-- Select 'Connection String' under Authentication Method.
+- Select 'Account Key' and then 'Connection String' under Authentication Method.
 - Select 'From Azure subscription' under 'Account Selection Method'.
 - Select Subscription under which the package is deployed.
 - Select CosmosDB account
