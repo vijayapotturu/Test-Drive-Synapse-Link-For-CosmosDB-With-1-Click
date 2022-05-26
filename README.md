@@ -107,7 +107,7 @@ This template deploys necessary resources to support an Azure Synapse link for C
   - Expand 'Azure CosmosDB', There will be five containers listed with 'Analytical Store' enabled.
 
 ![Navigate Synapse Link](https://github.com/Azure/Test-Drive-Synapse-Link-For-CosmosDB-With-1-Click/blob/main/images/Navigate_Synapse_Link3.gif)
-
+#### Sample data files are stored here - (https://github.com/Azure-Samples/Synapse/tree/main/Notebooks/PySpark/Synapse%20Link%20for%20Cosmos%20DB%20samples)
 #### Notebook Execution Using Synapse Link for CosmosDB
 - In Synapse Studio click on the 'Develop' icon in the left panel and navigate to the 'Notebooks' section.
 - There are two Notebooks available '1-SalesForecastingWithAML' and '2-AnomalyDetectionWithMML'.
