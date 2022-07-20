@@ -1,0 +1,17 @@
+{
+	"name": "AzureMLService",
+	"properties": {
+		"annotations": [],
+		"type": "AzureMLService",
+		"typeProperties": {
+			"subscriptionId": "326b99e2-8ff4-479f-9240-f5645a43a055",
+			"resourceGroupName": "AMLdemopot",
+			"mlWorkspaceName": "AMLPOTdemo",
+			"authentication": "MSI"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
